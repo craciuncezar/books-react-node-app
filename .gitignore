@@ -19,6 +19,10 @@ package-lock.json
 *.log
 *.gz
 
+.env
+*.orig
+.idea/
+.vscode/
 
 # Coveralls
 coverage

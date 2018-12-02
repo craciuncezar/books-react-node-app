@@ -3,10 +3,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 require("./config/passport-local");
+require("dotenv").config();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static("./frontend/build"));
+app.use(express.static("./client/build"));
 app.use(cors());
 
 // Routes
