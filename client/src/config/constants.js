@@ -1,4 +1,4 @@
-const SERVER = "http://localhost:8000";
+const SERVER = "https://books-club-mern.herokuapp.com/";
 const GOODREADS_API = {
   key: "WWionTXcpcSQwD9kqqQdIg",
   secret: "r1XJz2MwWNzS1lx31Dq5Vl672fvE6xpP1B7iIeZ2s"
