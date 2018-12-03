@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const { db } = require("../config");
-const sequelize = new Sequelize("bookClub", db.user, db.password, {
+const sequelize = new Sequelize(db.name, db.user, db.password, {
   host: db.database_url,
   dialect: "mysql",
   operatorsAliases: false,
