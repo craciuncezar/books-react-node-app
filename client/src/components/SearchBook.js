@@ -41,43 +41,21 @@ class SearchBook extends Component {
   search() {
     if (this.state.query !== "") {
       this.setState({ loading: true, book: {} });
-      let URL = `https://www.goodreads.com/search/index.xml?key= ${
-        constants.GOODREADS_API.key
-      }&q=title=${this.state.query}`;
-      URL = encodeURI(URL);
-      let proxyURL = proxify(URL, { inputFormat: "xml" });
+      let URL = `https://www.googleapis.com/books/v1/volumes?q=${this.state.query}&key=${constants.googleKey}`;
 
       axios
-        .get(proxyURL)
+        .get(URL)
         .then(res => {
           var data =
-            res.data.query.results.GoodreadsResponse.search.results.work[0];
+            res.data.items[0].volumeInfo;
           var book = {
-            title: data.best_book.title,
-            author: data.best_book.author.name,
-            id: data.best_book.id.content,
-            imgUrl: data.best_book.image_url
+            title: data.title,
+            author: data.authors[0],
+            description: data.description,
+            id: data.industryIdentifiers[0].identifier,
+            imgUrl: data.imageLinks.thumbnail
           };
-          return book;
-        })
-        .then(book => {
-          // Get description
-          const url_description = `https://www.goodreads.com/book/show.xml?key=${
-            constants.GOODREADS_API.key
-          }&id=${book.id}`;
-          const proxyURLD = proxify(url_description, { inputFormat: "xml" });
-          axios
-            .get(proxyURLD)
-            .then(res => {
-              var description =
-                res.data.query.results.GoodreadsResponse.book.description;
-              book.description = description;
-              this.setState({ book, loading: false });
-            })
-            .catch(err => {
-              console.log(err);
-              this.setState({ loading: false });
-            });
+          this.setState({ book, loading: false });
         })
         .catch(err => {
           console.log(err);
