@@ -8,5 +8,5 @@ export default {
   SERVER,
   GOODREADS_API,
   googleKey: "AIzaSyATDnNyteVV8w8BXmH7-KlzAa2Majc-irw",
-  nyTimesKey: "d021d4a057594f0a86d4669c5c86178e"
+  nyTimesKey: "0Wtv3sVPfO4iX5ZVmwktaNLglPEplcXB"
 };
