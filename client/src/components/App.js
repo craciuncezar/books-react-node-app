@@ -9,15 +9,11 @@ import Discover from "./Discover";
 import Main from "./Home/Main";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      token: "",
-      name: "",
-      bookLists: []
-    };
-  }
+  state = {
+    token: "",
+    name: "",
+    bookLists: []
+  };
 
   bookListsCallback = value => {
     this.setState({ bookLists: value });
@@ -29,18 +25,12 @@ class App extends Component {
   };
 
   signOut = () => {
-    this.setState({ token: "" });
-    this.setState({ name: "" });
-    this.setState({ bookLists: [] });
+    this.setState({ token: "", name: "", bookLists: [] });
     Cookies.remove("token");
   };
 
-  componentWillMount() {
-    if (Cookies.get("token") !== undefined) {
-      this.setState({ token: Cookies.get("token") });
-    } else {
-      this.setState({ token: "" });
-    }
+  componentDidMount() {
+    this.setState({ token: Cookies.get("token") || "" });
   }
 
   render() {

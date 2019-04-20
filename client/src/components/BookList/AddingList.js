@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 
 class AddingList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
       name: "",
-      description: ""
-    };
-  }
+      description: "" 
+  };
+  
   render() {
     return (
       <div className="col-12">
@@ -17,15 +15,15 @@ class AddingList extends Component {
               className="form-control mx-auto"
               type="text"
               placeholder="Enter Name"
+              value = {this.state.name}
               onChange={event => this.setState({ name: event.target.value })}
             />
             <input
               className="form-control mx-auto"
               type="text"
               placeholder="Enter Description"
-              onChange={event =>
-                this.setState({ description: event.target.value })
-              }
+              value = {this.state.description}
+              onChange={event => this.setState({ description: event.target.value })}
             />
             <button
               className="btn btn-primary mx-auto"

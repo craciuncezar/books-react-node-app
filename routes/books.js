@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const BookList = require("../models/dbModel").BookList;
-const Book = require("../models/dbModel").Book;
+const { BookList, Book, BookList_Book } = require("../models/dbModel");
 
 // Add a book to a booklist
 router.post("/:lid", (req, res) => {
@@ -11,13 +10,22 @@ router.post("/:lid", (req, res) => {
       if (bookList) {
         if (bookList.userId === req.user) {
           booklist = bookList;
-          return Book.create(req.body);
+          return Book.findOne({ where: { title: req.body.title } });
         } else {
           res.status(500).send("Not authorized");
           return Promise.reject();
         }
       } else {
         res.status(500).send("No booklist found");
+        return Promise.reject();
+      }
+    })
+    .then(book => {
+      if (!book) {
+        return Book.create(req.body);
+      } else {
+        booklist.addBook(book);
+        res.status(200).json({ id: book.id });
         return Promise.reject();
       }
     })
@@ -52,7 +60,9 @@ router.delete("/:lid/:bid", (req, res) => {
     .then(bookList => {
       if (bookList) {
         if (bookList.userId === req.user) {
-          return Book.destroy({ where: { id: req.params.bid } });
+          return BookList_Book.destroy({
+            where: { bookListId: req.params.lid, bookId: req.params.bid }
+          });
         } else {
           res.status(500).send("Not authorized");
           return Promise.reject();

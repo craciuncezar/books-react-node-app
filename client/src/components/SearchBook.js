@@ -1,28 +1,18 @@
 import React, { Component } from "react";
 import constants from "../config/constants";
 import axios from "axios";
-import proxify from "proxify-url";
 import { PulseLoader } from "react-spinners";
 
 class SearchBook extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    query: "",
+    book: {},
+    loading: false
+  };
 
-    this.state = {
-      query: "",
-      book: {},
-      loading: false
-    };
-  }
-
-  addBookToList(list) {
-    var book = {
-      title: this.state.book.title,
-      author: this.state.book.author,
-      description: this.state.book.description.slice(0, 230),
-      imgUrl: this.state.book.imgUrl
-    };
-    book.description += "...";
+  addBookToList = list => {
+    let book = this.state.book;
+    book.description = book.description.slice(0, 230) + "...";
     axios
       .post(constants.SERVER + "/books/" + list.id, book, {
         headers: {
@@ -36,23 +26,23 @@ class SearchBook extends Component {
         this.setState({ book: {} });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   search() {
     if (this.state.query !== "") {
       this.setState({ loading: true, book: {} });
-      let URL = `https://www.googleapis.com/books/v1/volumes?q=${this.state.query}&key=${constants.googleKey}`;
+      let URL = `https://www.googleapis.com/books/v1/volumes?q=${
+        this.state.query
+      }&key=${constants.googleKey}`;
 
       axios
         .get(URL)
         .then(res => {
-          var data =
-            res.data.items[0].volumeInfo;
+          var data = res.data.items[0].volumeInfo;
           var book = {
             title: data.title,
             author: data.authors[0],
             description: data.description,
-            id: data.industryIdentifiers[0].identifier,
             imgUrl: data.imageLinks.thumbnail
           };
           this.setState({ book, loading: false });

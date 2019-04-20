@@ -3,7 +3,7 @@ const { db } = require("../config");
 const sequelize = new Sequelize(db.name, db.user, db.password, {
   host: db.database_url,
   dialect: "mysql",
-  operatorsAliases: false,
+  operatorsAliases: false
 });
 
 const User = sequelize.define("user", {
@@ -69,9 +69,34 @@ const Book = sequelize.define("book", {
   }
 });
 
+const BestSellerLists = sequelize.define("bestSellerLists", {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+});
+
+const BookList_Book = sequelize.define(
+  "bookList_book",
+  {},
+  { freezeTableName: true }
+);
+
+const Bestseller_Book = sequelize.define(
+  "bestseller_book",
+  {},
+  { freezeTableName: true }
+);
+
 User.hasMany(BookList);
 BookList.belongsToMany(Book, { through: "bookList_book" });
 Book.belongsToMany(BookList, { through: "bookList_book" });
+BestSellerLists.belongsToMany(Book, {
+  through: "bestseller_book"
+});
+Book.belongsToMany(BestSellerLists, {
+  through: "bestseller_book"
+});
 
 sequelize
   .sync({
@@ -85,5 +110,8 @@ sequelize
 module.exports = {
   User,
   BookList,
-  Book
+  Book,
+  BestSellerLists,
+  BookList_Book,
+  Bestseller_Book
 };
