@@ -14,6 +14,6 @@ module.exports = {
           user: "root",
           password: "admin"
         },
-  nyTimesKey: "0Wtv3sVPfO4iX5ZVmwktaNLglPEplcXB",
-  googleKey: "AIzaSyATDnNyteVV8w8BXmH7-KlzAa2Majc-irw"
+  nyTimesKey: process.env.nyTimesKey,
+  googleKey: process.env.googleKey
 };
