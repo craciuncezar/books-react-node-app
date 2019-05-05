@@ -1,36 +1,40 @@
 import React, { Component } from "react";
 
-class AddingList extends Component {
-  state = {
-      name: "",
-      description: "" 
-  };
-  
+class EditBookList extends Component {
+  constructor(props) {
+    super(props);
+    const { id, name, description, booksAdded } = this.props.bookList;
+    this.state = { id, name, description, booksAdded };
+  }
+
   render() {
     return (
       <div className="col-12">
         <div className="form">
           <div className="form-group form-add">
+            <h3 className="mb-5">Edit your list information</h3>
             <input
               className="form-control mx-auto"
               type="text"
               placeholder="Enter Name"
-              value = {this.state.name}
+              value={this.state.name}
               onChange={event => this.setState({ name: event.target.value })}
             />
             <input
               className="form-control mx-auto"
               type="text"
               placeholder="Enter Description"
-              value = {this.state.description}
-              onChange={event => this.setState({ description: event.target.value })}
+              value={this.state.description}
+              onChange={event =>
+                this.setState({ description: event.target.value })
+              }
             />
             <button
               className="btn btn-primary mx-auto"
               type="button"
-              onClick={() => this.props.addBookList(this.state)}
+              onClick={() => this.props.editBookList(this.state)}
             >
-              ADD
+              EDIT
             </button>
           </div>
         </div>
@@ -39,4 +43,4 @@ class AddingList extends Component {
   }
 }
 
-export default AddingList;
+export default EditBookList;

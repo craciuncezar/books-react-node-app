@@ -1,7 +1,7 @@
 import React from "react";
-import imgLogo from "../assets/img/book_logo_icon.png";
+import imgLogo from "../../../assets/img/book_logo_icon.png";
 
-const MyNavbar = props => {
+const Navbar = props => {
   return (
     <ul className="topnav sticky">
       <li>
@@ -18,7 +18,7 @@ const MyNavbar = props => {
         <a href="#bookListsContainer">My Book Lists</a>
       </li>
       <li className="right">
-        <a href="#" onClick={() => props.signOut()}>
+        <a href="#home" onClick={() => props.signOut()}>
           Sign Out
         </a>
       </li>
@@ -26,4 +26,4 @@ const MyNavbar = props => {
   );
 };
 
-export default MyNavbar;
+export default Navbar;

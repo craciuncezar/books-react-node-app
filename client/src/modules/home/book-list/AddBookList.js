@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 
-class EdditingList extends Component {
-  constructor(props) {
-    super(props);
-    const {name, description} = this.props.bookList;
-    this.state = {name,description};
-  }
+class AddBookList extends Component {
+  state = {
+    name: "",
+    description: ""
+  };
 
   render() {
     return (
       <div className="col-12">
         <div className="form">
           <div className="form-group form-add">
-          <h3 className="mb-5">Edit your list information</h3>
             <input
               className="form-control mx-auto"
               type="text"
@@ -25,14 +23,18 @@ class EdditingList extends Component {
               type="text"
               placeholder="Enter Description"
               value={this.state.description}
-              onChange={event =>this.setState({ description: event.target.value })}
+              onChange={event =>
+                this.setState({ description: event.target.value })
+              }
             />
             <button
               className="btn btn-primary mx-auto"
               type="button"
-              onClick={() => this.props.editBookList(this.state)}
+              onClick={() =>
+                this.props.addBookList({ ...this.state, booksAdded: [] })
+              }
             >
-              EDIT
+              ADD
             </button>
           </div>
         </div>
@@ -41,4 +43,4 @@ class EdditingList extends Component {
   }
 }
 
-export default EdditingList;
+export default AddBookList;

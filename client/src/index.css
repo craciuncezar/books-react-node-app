@@ -244,17 +244,14 @@ footer {
   text-align: center;
 }
 #dropdownMenuButton {
+  width: 100%;
   padding: 12px;
   border-radius: 12px;
   font-size: 1.2em;
-  margin: 12px;
   text-align: center;
 }
 .card-body {
   text-align: left;
-}
-#dropdownMenuButton {
-  width: 98%;
 }
 /*######################## SMALL ##################*/
 
