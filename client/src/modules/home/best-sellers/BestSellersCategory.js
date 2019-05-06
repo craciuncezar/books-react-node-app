@@ -18,7 +18,7 @@ export const BestSellersCategory = ({
               <Dropdown
                 buttonText="ADD TO BOOKLIST"
                 listItems={bookLists}
-                onItemClicked={list => addBookToList(book, list)}
+                onItemClicked={list => addBookToList(list, book)}
               />
             </BookCard>
           );

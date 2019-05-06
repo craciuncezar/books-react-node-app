@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import imgLogo from "../../../assets/img/book_logo_icon.png";
+import { logOutUser } from "../../../redux/user/user.actions";
 
 const Navbar = props => {
   return (
@@ -18,7 +20,7 @@ const Navbar = props => {
         <a href="#bookListsContainer">My Book Lists</a>
       </li>
       <li className="right">
-        <a href="#home" onClick={() => props.signOut()}>
+        <a href="#home" onClick={() => props.logOutUser()}>
           Sign Out
         </a>
       </li>
@@ -26,4 +28,7 @@ const Navbar = props => {
   );
 };
 
-export default Navbar;
+export default connect(
+  null,
+  { logOutUser }
+)(Navbar);

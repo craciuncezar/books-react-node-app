@@ -19,15 +19,9 @@ class Authentication extends React.Component {
           <h1 className="display-3">Books Club</h1>
           <h2 className="display-4">Your reading companion.</h2>
           {this.state.hasAccount ? (
-            <Login
-              toggleHasAccount={this.toggleHasAccount}
-              callbackLogin={this.props.callbackLogin}
-            />
+            <Login toggleHasAccount={this.toggleHasAccount} />
           ) : (
-            <Register
-              toggleHasAccount={this.toggleHasAccount}
-              callbackLogin={this.props.callbackLogin}
-            />
+            <Register toggleHasAccount={this.toggleHasAccount} />
           )}
         </div>
       </div>

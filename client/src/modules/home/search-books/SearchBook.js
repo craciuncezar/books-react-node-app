@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { PulseLoader } from "react-spinners";
-import {
-  GOOGLE_BOOKS_API_URL,
-  GOOGLE_KEY,
-  SERVER
-} from "../../../config/constants";
+import { GOOGLE_BOOKS_API_URL, GOOGLE_KEY } from "../../../config/constants";
+import { addBookToList } from "../../../redux/bookLists/bookLists.actions";
 import { Dropdown } from "../../common/components/Dropdown";
 import BookCard from "../book-list/BookCard";
 
@@ -19,19 +17,7 @@ class SearchBook extends Component {
   addBookToList = list => {
     let book = this.state.book;
     book.description = book.description.slice(0, 230) + "...";
-    axios
-      .post(`${SERVER}/books/${list.id}`, book, {
-        headers: {
-          Authorization: `Bearer ${this.props.token}`
-        }
-      })
-      .then(results => {
-        book.id = results.data.id;
-        list.booksAdded.push(book);
-        this.props.bookListsCallback(this.props.bookLists);
-        this.setState({ book: {} });
-      })
-      .catch(err => console.log(err));
+    this.props.addBookToList(list, book);
   };
 
   search() {
@@ -94,4 +80,17 @@ class SearchBook extends Component {
   }
 }
 
-export default SearchBook;
+function mapStateToProps(state) {
+  return {
+    token: state.user.token
+  };
+}
+
+const mapDispatchToProps = {
+  addBookToList
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchBook);

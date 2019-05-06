@@ -1,46 +1,37 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Home from "./modules/home";
 import LandPage from "./modules/landpage";
+import { setTokenFromStorage } from "./redux/user/user.actions";
 
 class App extends Component {
-  state = {
-    token: "",
-    name: "",
-    bookLists: []
-  };
-
-  bookListsCallback = value => {
-    this.setState({ bookLists: value });
-  };
-
-  callbackLogin = ({ token, name }) => {
-    this.setState({ token, name });
-    window.localStorage.setItem("jwt-token", token);
-  };
-
-  signOut = () => {
-    this.setState({ token: "", name: "", bookLists: [] });
-    window.localStorage.removeItem("jwt-token");
-  };
-
   componentDidMount() {
-    this.setState({ token: window.localStorage.getItem("jwt-token") || "" });
+    const token = window.localStorage.getItem("jwt-token") || "";
+    if (token) {
+      this.props.setToken(token);
+    }
   }
 
   render() {
-    if (this.state.token === "") {
-      return <LandPage callbackLogin={this.callbackLogin} />;
+    if (this.props.user.token === "") {
+      return <LandPage />;
     } else {
-      return (
-        <Home
-          token={this.state.token}
-          singOutCallback={this.signOut}
-          bookLists={this.state.bookLists}
-          bookListsCallback={this.bookListsCallback}
-        />
-      );
+      return <Home />;
     }
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+const mapDispatchToProps = {
+  setToken: setTokenFromStorage
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

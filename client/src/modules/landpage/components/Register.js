@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { Component } from "react";
-import { SERVER } from "../../../config/constants";
+import { connect } from "react-redux";
+import { registerUser } from "../../../redux/user/user.actions";
 import { validateEmail, validateLength } from "../../common/lib/validation";
 
-export default class Register extends Component {
+class Register extends Component {
   state = {
     name: "",
     email: "",
@@ -30,13 +30,9 @@ export default class Register extends Component {
     }
     this.setState({ errors });
 
-    if (validated)
-      axios
-        .post(SERVER + "/users/register", { email, password, name })
-        .then(response => {
-          this.props.callbackLogin(response.data);
-        })
-        .catch(err => this.setState({ errors: [err.response.data.error] }));
+    if (validated) {
+      this.props.registerUser(email, password, name);
+    }
   };
 
   renderErrors = () => {
@@ -98,3 +94,8 @@ export default class Register extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { registerUser }
+)(Register);

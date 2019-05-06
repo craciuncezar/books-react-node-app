@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { SERVER } from "../../../config/constants";
+import { addBookToList } from "../../../redux/bookLists/bookLists.actions";
 import { BestSellersCategory } from "./BestSellersCategory";
 
 class BestSellersList extends Component {
@@ -9,26 +11,11 @@ class BestSellersList extends Component {
   };
 
   async componentDidMount() {
-    const bestSellersPayload = await axios.get(`${SERVER}/bestSellers`, {
+    const { data } = await axios.get(`${SERVER}/bestSellers`, {
       headers: { Authorization: `Bearer ${this.props.token}` }
     });
-    this.setState({ bestSellersCategories: bestSellersPayload.data });
+    this.setState({ bestSellersCategories: data });
   }
-
-  addBookToList = async (book, list) => {
-    const serverResponse = await axios.post(
-      SERVER + "/books/" + list.id,
-      book,
-      {
-        headers: {
-          Authorization: `Bearer ${this.props.token}`
-        }
-      }
-    );
-    book.id = serverResponse.data.id;
-    list.booksAdded.push(book);
-    this.props.bookListsCallback(this.props.bookLists);
-  };
 
   render() {
     return (
@@ -40,7 +27,7 @@ class BestSellersList extends Component {
               categoryName={bestSellersCategory.name}
               books={bestSellersCategory.books}
               bookLists={this.props.bookLists}
-              addBookToList={this.addBookToList}
+              addBookToList={this.props.addBookToList}
               key={bestSellersCategory.name}
             />
           ))}
@@ -50,4 +37,17 @@ class BestSellersList extends Component {
   }
 }
 
-export default BestSellersList;
+function mapStateToProps(state) {
+  return {
+    token: state.user.token
+  };
+}
+
+const mapDispatchToProps = {
+  addBookToList
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BestSellersList);

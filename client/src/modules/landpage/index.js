@@ -3,10 +3,10 @@ import Footer from "../common/components/Footer";
 import Authentication from "./components/Authentication";
 import HomeFeatures from "./components/HomeFeatures";
 
-const LandPage = ({ callbackLogin }) => {
+const LandPage = () => {
   return (
     <div className="App">
-      <Authentication callbackLogin={callbackLogin} />
+      <Authentication />
       <HomeFeatures />
       <Footer />
     </div>

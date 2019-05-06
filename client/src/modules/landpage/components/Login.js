@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { Component } from "react";
-import { SERVER } from "../../../config/constants";
+import { connect } from "react-redux";
+import { logInUser } from "../../../redux/user/user.actions";
 import { validateEmail, validateLength } from "../../common/lib/validation";
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     email: "",
     password: "",
@@ -25,13 +25,9 @@ export default class Login extends Component {
     }
     this.setState({ errors });
 
-    if (validated)
-      axios
-        .post(SERVER + "/users/login", { email, password })
-        .then(response => {
-          this.props.callbackLogin(response.data);
-        })
-        .catch(err => this.setState({ errors: [err.response.data.error] }));
+    if (validated) {
+      this.props.logInUser(email, password);
+    }
   };
 
   renderErrors = () => {
@@ -82,3 +78,8 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { logInUser }
+)(Login);
