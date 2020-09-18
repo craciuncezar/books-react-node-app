@@ -4,7 +4,12 @@ import Home from "./modules/home";
 import LandPage from "./modules/landpage";
 import { setTokenFromStorage } from "./redux/user/user.actions";
 
-const App = ({ user, setToken }) => {
+interface AppProps {
+  user: { token: string };
+  setToken: (token: string) => void;
+}
+
+const App: React.FC<AppProps> = ({ user, setToken }) => {
   useEffect(() => {
     const token = window.localStorage.getItem("jwt-token") || "";
     if (token) {
@@ -19,7 +24,7 @@ const App = ({ user, setToken }) => {
   }
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: { user: { token: string } }) {
   return {
     user: state.user,
   };
