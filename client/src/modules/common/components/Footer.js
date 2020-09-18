@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../../assets/img/book_logo.png";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer>
       <div className="container">
@@ -23,5 +23,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

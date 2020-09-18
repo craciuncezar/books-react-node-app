@@ -5,7 +5,7 @@ import { PulseLoader } from "react-spinners";
 import { GOOGLE_BOOKS_API_URL, GOOGLE_KEY } from "../../../config/constants";
 import { addBookToList } from "../../../redux/bookLists/bookLists.actions";
 import { Dropdown } from "../../common/components/Dropdown";
-import BookCard from "../book-list/BookCard";
+import { BookCard } from "../book-list/BookCard";
 
 const SearchBook = ({ bookLists, addBookToList }) => {
   const [query, setQuery] = useState("");

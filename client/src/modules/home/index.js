@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchBookLists } from "../../redux/bookLists/bookLists.actions";
-import Footer from "../common/components/Footer";
+import { Footer } from "../common/components/Footer";
 import Navbar from "../common/components/Navbar";
 import BookList from "../home/book-list/BookList";
 import SearchBook from "../home/search-books/SearchBook";

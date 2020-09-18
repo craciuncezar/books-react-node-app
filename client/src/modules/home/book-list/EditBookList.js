@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EditBookList = (props) => {
+export const EditBookList = (props) => {
   const [name, setName] = useState(props.bookList.name);
   const [description, setDescription] = useState(props.bookList.description);
 
@@ -41,5 +41,3 @@ const EditBookList = (props) => {
     </div>
   );
 };
-
-export default EditBookList;

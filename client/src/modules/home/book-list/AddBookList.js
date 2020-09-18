@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddBookList = ({ addBookList }) => {
+export const AddBookList = ({ addBookList }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -50,5 +50,3 @@ const AddBookList = ({ addBookList }) => {
     </>
   );
 };
-
-export default AddBookList;

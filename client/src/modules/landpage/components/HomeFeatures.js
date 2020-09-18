@@ -17,7 +17,7 @@ const FeatureCard = ({ featureText, imgSrc }) => {
   );
 };
 
-const HomeFeatures = () => {
+export const HomeFeatures = () => {
   return (
     <div className="features-site-area">
       <div className="container">
@@ -43,5 +43,3 @@ const HomeFeatures = () => {
     </div>
   );
 };
-
-export default HomeFeatures;

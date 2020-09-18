@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookCard = ({ book, children }) => {
+export const BookCard = ({ book, children }) => {
   return (
     <div className="col-md-6 mb-2 center-block">
       <div className="card">
@@ -13,7 +13,7 @@ const BookCard = ({ book, children }) => {
           <p
             className="card-text"
             dangerouslySetInnerHTML={{
-              __html: book.description
+              __html: book.description,
             }}
           />
           {children}
@@ -22,5 +22,3 @@ const BookCard = ({ book, children }) => {
     </div>
   );
 };
-
-export default BookCard;

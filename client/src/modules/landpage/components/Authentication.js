@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 
-const Authentication = () => {
+export const Authentication = () => {
   const [hasAccount, setHasAccount] = useState(true);
 
   const toggleHasAccount = () => setHasAccount((prev) => !prev);
@@ -21,5 +21,3 @@ const Authentication = () => {
     </div>
   );
 };
-
-export default Authentication;

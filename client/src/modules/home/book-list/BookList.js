@@ -6,9 +6,9 @@ import {
   editBookList,
   removeBookFromList,
 } from "../../../redux/bookLists/bookLists.actions";
-import AddBookList from "./AddBookList";
-import BookCard from "./BookCard";
-import EditBookList from "./EditBookList";
+import { AddBookList } from "./AddBookList";
+import { BookCard } from "./BookCard";
+import { EditBookList } from "./EditBookList";
 
 const BookList = ({
   bookLists,
