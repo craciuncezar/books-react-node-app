@@ -1,32 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 
-class Authentication extends React.Component {
-  state = {
-    hasAccount: true
-  };
+const Authentication = () => {
+  const [hasAccount, setHasAccount] = useState(true);
 
-  toggleHasAccount = () => {
-    const hasAccount = !this.state.hasAccount;
-    this.setState({ hasAccount });
-  };
+  const toggleHasAccount = () => setHasAccount((prev) => !prev);
 
-  render() {
-    return (
-      <div className="img-home">
-        <div className="caption">
-          <h1 className="display-3">Books Club</h1>
-          <h2 className="display-4">Your reading companion.</h2>
-          {this.state.hasAccount ? (
-            <Login toggleHasAccount={this.toggleHasAccount} />
-          ) : (
-            <Register toggleHasAccount={this.toggleHasAccount} />
-          )}
-        </div>
+  return (
+    <div className="img-home">
+      <div className="caption">
+        <h1 className="display-3">Books Club</h1>
+        <h2 className="display-4">Your reading companion.</h2>
+        {hasAccount ? (
+          <Login toggleHasAccount={toggleHasAccount} />
+        ) : (
+          <Register toggleHasAccount={toggleHasAccount} />
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Authentication;

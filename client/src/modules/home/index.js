@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchBookLists } from "../../redux/bookLists/bookLists.actions";
 import Footer from "../common/components/Footer";
@@ -7,35 +7,30 @@ import BookList from "../home/book-list/BookList";
 import SearchBook from "../home/search-books/SearchBook";
 import BestSellersList from "./best-sellers/BestSellersList";
 
-class Home extends React.Component {
-  componentDidMount() {
-    this.props.fetchBookLists();
-  }
+const Home = ({ fetchBookLists, bookLists }) => {
+  useEffect(() => {
+    fetchBookLists();
+  }, [fetchBookLists]);
 
-  render() {
-    return (
-      <div className="App">
-        <Navbar />
-        <BestSellersList bookLists={this.props.bookLists} />
-        <SearchBook bookLists={this.props.bookLists} />
-        <BookList bookLists={this.props.bookLists} />
-        <Footer />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <Navbar />
+      <BestSellersList bookLists={bookLists} />
+      <SearchBook bookLists={bookLists} />
+      <BookList bookLists={bookLists} />
+      <Footer />
+    </div>
+  );
+};
 
 function mapStateToProps({ bookLists }) {
   return {
-    bookLists
+    bookLists,
   };
 }
 
 const mapDispatchToProps = {
-  fetchBookLists
+  fetchBookLists,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
