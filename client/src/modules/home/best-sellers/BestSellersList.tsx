@@ -3,14 +3,33 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { SERVER } from "../../../config/constants";
 import { addBookToList } from "../../../redux/bookLists/bookLists.actions";
+import { Book, BookList } from "../../../redux/bookLists/bookLists.reducer";
+import { ReduxStore } from "../../../redux/reducer";
 import { BestSellersCategory } from "./BestSellersCategory";
 
-const BestSellersList = ({ token, bookLists, addBookToList }) => {
-  const [bestSellersCategories, setBestSellersCategories] = useState([]);
+interface BestSellersListProps {
+  token: string;
+  bookLists: BookList[];
+  addBookToList: (list: BookList, book: Book) => void;
+}
+
+interface BestSellersCategory {
+  name: string;
+  books: Book[];
+}
+
+const BestSellersList = ({
+  token,
+  bookLists,
+  addBookToList,
+}: BestSellersListProps) => {
+  const [bestSellersCategories, setBestSellersCategories] = useState<
+    BestSellersCategory[]
+  >([]);
 
   useEffect(() => {
     axios
-      .get(`${SERVER}/bestSellers`, {
+      .get<BestSellersCategory[]>(`${SERVER}/bestSellers`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(({ data }) => setBestSellersCategories(data));
@@ -34,7 +53,7 @@ const BestSellersList = ({ token, bookLists, addBookToList }) => {
   );
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: ReduxStore) {
   return {
     token: state.user.token,
   };

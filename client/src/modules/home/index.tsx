@@ -1,13 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchBookLists } from "../../redux/bookLists/bookLists.actions";
+import { BookList as BookListType } from "../../redux/bookLists/bookLists.reducer";
+import { ReduxStore } from "../../redux/reducer";
 import { Footer } from "../common/components/Footer";
 import Navbar from "../common/components/Navbar";
 import BookList from "../home/book-list/BookList";
 import SearchBook from "../home/search-books/SearchBook";
 import BestSellersList from "./best-sellers/BestSellersList";
 
-const Home = ({ fetchBookLists, bookLists }) => {
+interface HomeProps {
+  fetchBookLists: () => void;
+  bookLists: BookListType[];
+}
+
+const Home = ({ fetchBookLists, bookLists }: HomeProps) => {
   useEffect(() => {
     fetchBookLists();
   }, [fetchBookLists]);
@@ -23,7 +30,7 @@ const Home = ({ fetchBookLists, bookLists }) => {
   );
 };
 
-function mapStateToProps({ bookLists }) {
+function mapStateToProps({ bookLists }: ReduxStore) {
   return {
     bookLists,
   };

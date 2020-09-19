@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import imgLogo from "../../../assets/img/book_logo_icon.png";
 import { logOutUser } from "../../../redux/user/user.actions";
 
-const Navbar = props => {
+interface NavbarProps {
+  logOutUser: () => void;
+}
+
+const Navbar = (props: NavbarProps) => {
   return (
     <ul className="topnav sticky">
       <li>
@@ -28,7 +32,4 @@ const Navbar = props => {
   );
 };
 
-export default connect(
-  null,
-  { logOutUser }
-)(Navbar);
+export default connect(null, { logOutUser })(Navbar);

@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { BookList } from "../../../redux/bookLists/bookLists.reducer";
 
-export const EditBookList = (props) => {
+interface EditBookListProps {
+  bookList: BookList;
+  editBookList: (book: BookList) => void;
+}
+
+export const EditBookList = (props: EditBookListProps) => {
   const [name, setName] = useState(props.bookList.name);
   const [description, setDescription] = useState(props.bookList.description);
 

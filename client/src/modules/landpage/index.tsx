@@ -3,7 +3,7 @@ import { Footer } from "../common/components/Footer";
 import { Authentication } from "./components/Authentication";
 import { HomeFeatures } from "./components/HomeFeatures";
 
-const LandPage = () => {
+export const LandPage = () => {
   return (
     <div className="App">
       <Authentication />
@@ -12,5 +12,3 @@ const LandPage = () => {
     </div>
   );
 };
-
-export default LandPage;

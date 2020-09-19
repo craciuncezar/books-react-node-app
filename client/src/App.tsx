@@ -1,37 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import Home from "./modules/home";
-import LandPage from "./modules/landpage";
-import { setTokenFromStorage } from "./redux/user/user.actions";
+import { LandPage } from "./modules/landpage";
+import { User } from "./redux/user/user.reducer";
 
 interface AppProps {
-  user: { token: string };
-  setToken: (token: string) => void;
+  user: User;
 }
 
-const App: React.FC<AppProps> = ({ user, setToken }) => {
-  useEffect(() => {
-    const token = window.localStorage.getItem("jwt-token") || "";
-    if (token) {
-      setToken(token);
-    }
-  }, [setToken]);
-
-  if (user.token === "") {
-    return <LandPage />;
-  } else {
-    return <Home />;
-  }
+const App: React.FC<AppProps> = ({ user }) => {
+  return user.token === "" ? <LandPage /> : <Home />;
 };
 
-function mapStateToProps(state: { user: { token: string } }) {
+function mapStateToProps(state: { user: User }) {
   return {
     user: state.user,
   };
 }
 
-const mapDispatchToProps = {
-  setToken: setTokenFromStorage,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

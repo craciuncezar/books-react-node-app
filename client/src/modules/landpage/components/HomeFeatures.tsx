@@ -4,7 +4,12 @@ import imgOrganize from "../../../assets/img/organize_books.png";
 import imgReview from "../../../assets/img/review.png";
 import imgShare from "../../../assets/img/share_books.png";
 
-const FeatureCard = ({ featureText, imgSrc }) => {
+interface FeatureCard {
+  featureText: string;
+  imgSrc: string;
+}
+
+const FeatureCard = ({ featureText, imgSrc }: FeatureCard) => {
   return (
     <div className="col-md-6 col-xl-3">
       <div className="card">

@@ -1,6 +1,12 @@
 import React from "react";
 
-export const Dropdown = props => {
+interface DropdownProps<T extends { name: string }> {
+  buttonText: string;
+  listItems: T[];
+  onItemClicked: (item: T) => void;
+}
+
+export function Dropdown<T extends { name: string }>(props: DropdownProps<T>) {
   return (
     <div className="dropdown">
       <button
@@ -14,7 +20,7 @@ export const Dropdown = props => {
         {props.buttonText}
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        {props.listItems.map(element => {
+        {props.listItems.map((element) => {
           return (
             <button
               key={element.name}
@@ -29,4 +35,4 @@ export const Dropdown = props => {
       </div>
     </div>
   );
-};
+}

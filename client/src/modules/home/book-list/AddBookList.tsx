@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { BookList } from "../../../redux/bookLists/bookLists.reducer";
 
-export const AddBookList = ({ addBookList }) => {
+interface AddBookListProps {
+  addBookList: (list: Pick<BookList, "name" | "description">) => void;
+}
+
+export const AddBookList = ({ addBookList }: AddBookListProps) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -37,7 +42,7 @@ export const AddBookList = ({ addBookList }) => {
                 className="btn btn-primary mx-auto"
                 type="button"
                 onClick={() => {
-                  addBookList({ name, description, booksAdded: [] });
+                  addBookList({ name, description });
                   setShowAddForm(false);
                 }}
               >

@@ -6,9 +6,21 @@ import {
   editBookList,
   removeBookFromList,
 } from "../../../redux/bookLists/bookLists.actions";
+import {
+  Book,
+  BookList as BookListType,
+} from "../../../redux/bookLists/bookLists.reducer";
 import { AddBookList } from "./AddBookList";
 import { BookCard } from "./BookCard";
 import { EditBookList } from "./EditBookList";
+
+interface BookListProps {
+  bookLists: BookListType[];
+  addBookList: (bookList: Pick<BookListType, "name" | "description">) => void;
+  editBookList: (bookList: BookListType) => void;
+  deleteBookList: (bookList: BookListType) => void;
+  removeBookFromList: (booklist: BookListType, book: Book) => void;
+}
 
 const BookList = ({
   bookLists,
@@ -16,7 +28,7 @@ const BookList = ({
   editBookList,
   deleteBookList,
   removeBookFromList,
-}) => {
+}: BookListProps) => {
   const [editingListId, setEditingListId] = useState(-1);
 
   return (

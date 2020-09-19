@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { logInUser } from "../../../redux/user/user.actions";
+import { registerUser } from "../../../redux/user/user.actions";
 import { validateEmail, validateLength } from "../../common/lib/validation";
 
-const Login = ({ logInUser, toggleHasAccount }) => {
+interface RegisterProps {
+  registerUser: (email: string, password: string, name: string) => void;
+  toggleHasAccount: () => void;
+}
+
+const Register = ({ registerUser, toggleHasAccount }: RegisterProps) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
-  const onSingInPressed = () => {
+  const onSignUpPressed = () => {
     let validated = true;
     let errors = [];
 
+    if (!validateLength(name)) {
+      validated = false;
+      errors.push("Name must be at least 8 chars!");
+    }
     if (!validateEmail(email)) {
       validated = false;
       errors.push("Email is not valid!");
@@ -20,11 +30,10 @@ const Login = ({ logInUser, toggleHasAccount }) => {
       validated = false;
       errors.push("Password must be at least 8 chars!");
     }
-
     setErrors(errors);
 
     if (validated) {
-      logInUser(email, password);
+      registerUser(email, password, name);
     }
   };
 
@@ -46,8 +55,15 @@ const Login = ({ logInUser, toggleHasAccount }) => {
   return (
     <div className="form">
       <div className="form-group">
-        <h2>Sign in</h2>
+        <h2>Sign up</h2>
         {renderErrors()}
+        <input
+          className="form-control mx-auto"
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
         <input
           className="form-control mx-auto"
           type="email"
@@ -63,16 +79,20 @@ const Login = ({ logInUser, toggleHasAccount }) => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button className="btn btn-primary" onClick={onSingInPressed}>
-          Sign In
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={onSignUpPressed}
+        >
+          Sign Up
         </button>
         <h4>
-          You don't have an account?{" "}
-          <span onClick={toggleHasAccount}>Register here!</span>
+          You have an account?{" "}
+          <span onClick={toggleHasAccount}>Sing in here!</span>
         </h4>
       </div>
     </div>
   );
 };
 
-export default connect(null, { logInUser })(Login);
+export default connect(null, { registerUser })(Register);

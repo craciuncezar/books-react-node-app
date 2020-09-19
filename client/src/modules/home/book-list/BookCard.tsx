@@ -1,6 +1,11 @@
 import React from "react";
+import { Book } from "../../../redux/bookLists/bookLists.reducer";
 
-export const BookCard = ({ book, children }) => {
+interface BookCardProps {
+  book: Book;
+}
+
+export const BookCard: React.FC<BookCardProps> = ({ book, children }) => {
   return (
     <div className="col-md-6 mb-2 center-block">
       <div className="card">
